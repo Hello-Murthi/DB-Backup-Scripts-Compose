@@ -1,6 +1,4 @@
 #!/bin/bash
-
- 
 export PATH=/bin:/usr/bin:/usr/local/bin
 TODAY=`date +"%d%b%Y"`
  
@@ -50,18 +48,6 @@ else
 fi
  
  
-######## Remove backups older than {BACKUP_RETAIN_DAYS} days  ########
- 
-DBDELDATE=`date +"%d%b%Y" --date="${BACKUP_RETAIN_DAYS} days ago"`
- 
-if [ ! -z ${DB_BACKUP_PATH} ]; then
-      cd ${DB_BACKUP_PATH}
-      if [ ! -z ${DBDELDATE} ] && [ -d ${DBDELDATE} ]; then
-            rm -rf ${DBDELDATE}
-      fi
-fi
- 
-######################### End of script ##############################
 
 
 

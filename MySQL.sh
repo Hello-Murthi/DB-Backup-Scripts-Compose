@@ -23,9 +23,3 @@ echo "operation finished at $(date +'%d-%m-%Y %H:%M:%S')" >> "$logfile"
 echo "*****************" >> "$logfile"
 exit 0
 
-
-https://stackoverflow.com/questions/19664893/linux-shell-script-for-database-backup
-
-
-
-https://tecadmin.net/shell-script-backup-mongodb-database/

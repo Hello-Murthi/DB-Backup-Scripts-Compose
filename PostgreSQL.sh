@@ -18,7 +18,3 @@ echo "Pull Complete"
 echo "Clearing old backups"
 find . -type f -iname '*.backup.gz' -ctime +15 -not -name '????-??-01.backup.gz' -delete
 echo "Clearing Complete"
-
-
-
-https://gist.github.com/4410287/53593b8661f5765aaa3838e5a2014458
