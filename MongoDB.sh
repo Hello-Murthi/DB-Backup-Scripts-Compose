@@ -1,41 +1,22 @@
 #!/bin/bash
-export PATH=/bin:/usr/bin:/usr/local/bin
 TODAY=`date +"%d%b%Y"`
  
 DB_BACKUP_PATH='/backup/mongo'
 MONGO_HOST='localhost'
 MONGO_PORT='27017'
+
+MONGO_USER='root'
+MONGO_PASSWD='c0mpl1cat3d'
+
+# Set "ALL" for all DBs else, DB names seprated by space for specific dbs
  
-# If mongodb is protected with username password.
-# Set AUTH_ENABLED to 1 
-# and add MONGO_USER and MONGO_PASSWD values correctly
- 
-AUTH_ENABLED=0
-MONGO_USER=''
-MONGO_PASSWD=''
- 
- 
-# Set DATABASE_NAMES to "ALL" to backup all databases.
-# or specify databases names seprated with space to backup 
-# specific databases only.
- 
-DATABASE_NAMES='ALL'
-#DATABASE_NAMES='mydb db2 newdb'
- 
-## Number of days to keep local backup copy
-BACKUP_RETAIN_DAYS=30   
- 
-######################################################################
-######################################################################
- 
+#DATABASE_NAMES='ALL'
+DATABASE_NAMES='vault'
+
 mkdir -p ${DB_BACKUP_PATH}/${TODAY}
  
-AUTH_PARAM=""
- 
-if [ ${AUTH_ENABLED} -eq 1 ]; then
- AUTH_PARAM=" --username ${MONGO_USER} --password ${MONGO_PASSWD} "
-fi
- 
+AUTH_PARAM=" --username ${MONGO_USER} --password ${MONGO_PASSWD} "
+
 if [ ${DATABASE_NAMES} = "ALL" ]; then
  echo "You have choose to backup all databases"
  mongodump --host ${MONGO_HOST} --port ${MONGO_PORT} ${AUTH_PARAM} --out ${DB_BACKUP_PATH}/${TODAY}/
@@ -43,16 +24,10 @@ else
  echo "Running backup for selected databases"
  for DB_NAME in ${DATABASE_NAMES}
  do
- mongodump --host ${MONGO_HOST} --port ${MONGO_PORT} --db ${DB_NAME} ${AUTH_PARAM} --out ${DB_BACKUP_PATH}/${TODAY}/
+ mongodump --host ${MONGO_HOST} --port ${MONGO_PORT} --db ${DB_NAME} ${AUTH_PARAM} --authenticationDatabase 'admin' -c authlogs --query '{ "timest": { "$gte": { "$date": "2010-08-19T00:00:00.000Z" } } }' --out ${DB_BACKUP_PATH}/${TODAY}/
  done
 fi
- 
- 
 
 
 
-
-
-
-0 2 * * * /backup/mongo-backup.sh
-
+#zip
