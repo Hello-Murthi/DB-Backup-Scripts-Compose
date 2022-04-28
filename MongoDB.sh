@@ -9,9 +9,6 @@ mkdir -p ${DB_BACKUP_PATH}
 AUTH_PARAM=" --username ${MONGO_USER} --password ${MONGO_PASSWD} "
 LOGFILE=${DB_BACKUP_PATH}/logs.txt
 
-# Set "ALL" for all DBs or DB names seprated by space for specific dbs
-
-#DATABASE_NAMES='ALL'
 DATABASE_NAMES='admin voice'
 
 for DB_NAME in ${DATABASE_NAMES}
@@ -24,12 +21,7 @@ mv dump ${TODAY}
 tar -zcvf MongoDB_${TODAY}.tar.gz ${TODAY}
 #aws s3 cp MongoDB_${TODAY}.tar.gz s3://opteon-data-integration/
 echo "Successfully uploaded to AWS S3" >> "$LOGFILE"
-#rm MongoDB_${TODAY}.tar.gz
-#rm -rf ${TODAY}
+rm MongoDB_${TODAY}.tar.gz
+rm -rf ${TODAY}
 echo "*****************" >> "$LOGFILE"
-
-
-#Delete Files older than 3 days in AWS S3
-
-
 
