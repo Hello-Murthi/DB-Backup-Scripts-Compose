@@ -1,0 +1,22 @@
+version: '3.7'
+
+networks:
+  network:
+    external: true
+    
+services:
+  dbbackup:
+    image: yellowmessenger.azurecr.io/dbbackup:v2
+    environment:
+      DBUSER: root
+      DBPASSWD: c0mpl1cat3d
+    deploy:
+      mode: replicated
+      replicas: 1
+    networks:
+      network:
+        aliases:
+          - dbbackup
+    volumes:
+      - /chatbotShared/data/dbbackup:/dbbackup
+
