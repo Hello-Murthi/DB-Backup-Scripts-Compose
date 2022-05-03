@@ -6,10 +6,10 @@ networks:
     
 services:
   dbbackup:
-    image: yellowmessenger.azurecr.io/dbbackup:v2
+    image: yellowmessenger.azurecr.io/dbbackup:v3
     environment:
-      DBUSER: root
-      DBPASSWD: c0mpl1cat3d
+      USER: root
+      PASSWORD: c0mpl1cat3d
     deploy:
       mode: replicated
       replicas: 1
