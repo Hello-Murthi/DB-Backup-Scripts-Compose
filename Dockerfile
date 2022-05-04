@@ -16,7 +16,7 @@ RUN \
   
 RUN apt-get install -y cron
 
-# Set environment variables.
+# Set environment variables
 ENV DEBIAN_FRONTEND noninteractive
 
 #install elasticdump cli
